@@ -5,6 +5,7 @@
 
 class IEntity
 {
+protected:
     glm::vec4 posicion; //Posicion
     glm::vec4 rotacion; //Rotacion
     glm::vec4 escalado; //Rotacion
