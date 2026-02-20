@@ -1,5 +1,4 @@
 #pragma once
-//#include "mapi/common.h"
 #include "vertex_t.h"
 
 

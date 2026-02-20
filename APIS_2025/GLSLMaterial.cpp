@@ -40,6 +40,11 @@ void GLSLMaterial::prepare()
     }
 
 	glm::mat4 model = System::GetModelMatrix();
+    
+    //seguir aqui
+    /*
+    program->setColorTextEnable();
+	program->bindColorTextureSampler(0, colorText);*/
 
     glm::mat4 mvp = proj * view * model;
 

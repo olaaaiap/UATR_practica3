@@ -15,6 +15,9 @@ public:
 	void linkProgram()  override; // Una vez añadidos todos los programas,compila y linka para generar el programa final
 	void use()  override; // Activa el uso de este programa
 	void checkLinkerErrors()  override; // Muestra por terminal los errores encontrados durante la compilación y linkado
+	void setColorTextEnable() override; //Inicializa la variable uniform que indicará al shader de fragmentos si debe de utilizar texturas al colorear
+	void setColorTextDisable() override;
+	void bindColorTextureSampler(int binding, ITexture* text) override; // Selecciona el punto de enlace (binding)para la textura pasada por parámetros
 
 
 	void setVertexAttrib(std::string name, GLsizei stride, void* offset, GLint count, GLenum type)  override;

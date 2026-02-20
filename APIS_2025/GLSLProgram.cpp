@@ -105,6 +105,24 @@ void GLSLProgram::checkLinkerErrors()
     }
 }
 
+void GLSLProgram::setColorTextEnable()
+{
+    glUniform1i(varList["useColorText"], 1); //usar en shader
+}
+
+void GLSLProgram::setColorTextDisable()
+{
+    glUniform1i(varList["useColorText"], 0); //usar en shader
+}
+void GLSLProgram::bindColorTextureSampler(int binding, ITexture* text)
+{
+    GLenum textureType = text->getCubemap() ? GL_TEXTURE_CUBE_MAP : GL_TEXTURE_2D;
+
+    glActiveTexture(GL_TEXTURE0 + binding); //activar
+    glBindTexture(textureType, text->getTextID()); //enlazar
+    glUniform1i(varList["colorText"], binding); //usar en shader
+}
+
 void GLSLProgram::setVertexAttrib(std::string name, GLsizei stride, void* offset, GLint count, GLenum type)
 {
     //si existe

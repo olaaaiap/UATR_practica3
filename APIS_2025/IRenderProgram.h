@@ -1,6 +1,7 @@
 #pragma once
 #include "mapi/common.h"
 #include "IProgram.h"
+#include "ITexture.h"
 
 class IRenderProgram
 {
@@ -22,5 +23,8 @@ public:
 	virtual void setVec3(std::string name, const glm::vec3& vec) = 0;
 	virtual void setVec4(std::string name, const glm::vec4& vec) = 0;
 	virtual void setMatrix(std::string name, const glm::mat4& matrix) = 0;
+	virtual void setColorTextEnable() = 0; //Inicializa la variable uniform que indicará al shader de fragmentos si debe de utilizar texturas al colorear
+	virtual void setColorTextDisable() = 0;
+	virtual void bindColorTextureSampler(int binding, ITexture* text) = 0; // Selecciona el punto de enlace (binding)para la textura pasada por parámetros
 };
 
