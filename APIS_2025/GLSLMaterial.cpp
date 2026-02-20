@@ -25,4 +25,23 @@ void GLSLMaterial::loadPrograms(const std::vector<std::string>& files)
 void GLSLMaterial::prepare()
 {
     program->use();
+
+	World* world = System::GetWorld();
+	if (!world) return;
+    int activeCameraIndex = world->getActiveCamera();
+	Camera* cam = world->getCamera(activeCameraIndex);
+
+    //Inicializar a matriz de identidad
+    glm::mat4 view(1.0f);
+    glm::mat4 proj(1.0f);
+    if (cam) {
+        view = cam->getView();
+        proj = cam->getProjection();
+    }
+
+	glm::mat4 model = System::GetModelMatrix();
+
+    glm::mat4 mvp = proj * view * model;
+
+	program->setMatrix("mMat", mvp);
 }

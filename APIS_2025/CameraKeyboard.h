@@ -3,6 +3,8 @@
 
 class CameraKeyboard : public Camera
 {
-	void step(float timeStep) override;
+	public:
+		CameraKeyboard(projectionType_e type, glm::vec3 position, glm::vec3 up, glm::vec3 lookAt);
+		void step(double timeStep) override;
 };
 

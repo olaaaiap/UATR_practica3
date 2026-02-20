@@ -26,6 +26,6 @@ public:
 	void computeProjectionMatrix();
 	void computeViewMatrix();
 
-	virtual void step(float timestep) = 0;
+	virtual void step(double timestep) = 0;
 };
 

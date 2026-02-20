@@ -1,6 +1,6 @@
 #include "GL4Render.h"
 #include <GLFW/glfw3.h>
-#include <glm/gtc/type_ptr.hpp>
+#include "System.h"
 
 GL4Render::GL4Render(double w, double h): GL1Render(w, h){}
 
@@ -53,6 +53,14 @@ void GL4Render::drawObjects(std::list<Object3D*>* objs)
     {
         // Calcular matriz modelo
         auto model = obj->computeModelMatrix();
+
+        // Establecer la matriz modelo en el System para que GLSLMaterial::prepare() la use
+        System::SetModelMatrix(model);
+
+        // Preparar el material (usa el programa y sube MVP desde la cámara activa)
+        if (obj->GetMesh() && obj->GetMesh()->getMaterial())
+            obj->GetMesh()->getMaterial()->prepare();
+
 
         // Guardar la matriz actual en la pila
         glPushMatrix();

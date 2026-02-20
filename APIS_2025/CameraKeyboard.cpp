@@ -1,11 +1,26 @@
 #include "CameraKeyboard.h"
 #include "GLFWInputManager.h"
 
-void CameraKeyboard::step(float timeStep)
+CameraKeyboard::CameraKeyboard(projectionType_e type, glm::vec3 position, glm::vec3 up, glm::vec3 lookAt)
+	:Camera(type, position, up, lookAt)
+{
+}
+
+
+
+void CameraKeyboard::step(double timeStep)
 {
     //actualizar movimientos
-    float vel = 1.0f; //unidadesGl segundo
-    float velRot = 40.0f;
+    double vel = 1.0; //unidadesGl segundo
+    double velRot = 40.0;
+
+    //std::cout << "keyboard pressed:";
+    for (const auto& [key, pressed] : GLFWInputManager::keyboardState) {
+        if (pressed) std::cout << ' ' << key;
+    }
+    std::cout << std::endl;
+
+
     if (GLFWInputManager::keyboardState[GLFW_KEY_D])
     {
         this->posicion.x += vel * timeStep;
