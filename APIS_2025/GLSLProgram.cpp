@@ -114,6 +114,7 @@ void GLSLProgram::setColorTextDisable()
 {
     glUniform1i(varList["useColorText"], 0); //usar en shader
 }
+
 void GLSLProgram::bindColorTextureSampler(int binding, ITexture* text)
 {
     GLenum textureType = text->getCubemap() ? GL_TEXTURE_CUBE_MAP : GL_TEXTURE_2D;

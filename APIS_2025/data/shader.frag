@@ -2,6 +2,7 @@
 
 uniform sampler2D colorText; //unidad de textura de color
 uniform bool useColorText;
+uniform vec4 colorRGBA;
 
 in vec2 fTexCoord;
 
@@ -13,6 +14,5 @@ void main()
     if(useColorText)
         tColor=texture(colorText, fTexCoord);
 
-    //fragColor = fColor+tColor; //asignar color de salida
-    fragColor = tColor; //asignar color de salida
+    fragColor = colorRGBA+tColor; //asignar color de salida
 }  

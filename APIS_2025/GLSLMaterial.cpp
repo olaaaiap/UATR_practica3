@@ -40,13 +40,27 @@ void GLSLMaterial::prepare()
     }
 
 	glm::mat4 model = System::GetModelMatrix();
-    
-    //seguir aqui
-    /*
-    program->setColorTextEnable();
-	program->bindColorTextureSampler(0, colorText);*/
-
     glm::mat4 mvp = proj * view * model;
-
 	program->setMatrix("mMat", mvp);
+    
+
+    if (colorText != nullptr) {
+        program->setColorTextEnable();
+        program->bindColorTextureSampler(0, colorText);
+    }
+    else {
+        program->setColorTextDisable();
+    }
+
+
+    program->setVertexAttrib("vTexCoord", sizeof(vertex_t), (void*)offsetof(vertex_t, vTextCoords), 2, GL_FLOAT);
+
+
+    glm::vec4 matColor(1.0f); // fallback blanco
+    matColor = this->getColorRGBA();
+    program->setVec4("colorRGBA", matColor);
+
+
+
+
 }
