@@ -54,7 +54,7 @@ void GLSLMaterial::prepare()
 
 
     program->setVertexAttrib("vTexCoord", sizeof(vertex_t), (void*)offsetof(vertex_t, vTextCoords), 2, GL_FLOAT);
-
+     
 
     glm::vec4 matColor(1.0f); // fallback blanco
     matColor = this->getColorRGBA();
