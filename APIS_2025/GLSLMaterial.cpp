@@ -50,7 +50,7 @@ void GLSLMaterial::prepare()
     }
     else {
         program->setColorTextDisable();
-    }
+    } 
 
 
     program->setVertexAttrib("vTexCoord", sizeof(vertex_t), (void*)offsetof(vertex_t, vTextCoords), 2, GL_FLOAT);
