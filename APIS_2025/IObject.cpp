@@ -1,11 +1,21 @@
 #include "IObject.h"
 
-Mesh3D* IObject::GetMesh()
+Mesh3D* IObject::GetMesh(int pos)
 {
-	return this->mesh;
+	return this->meshes[pos];
 }
 
-void IObject::SetMesh(Mesh3D* m)
+std::vector<Mesh3D*>& IObject::getMeshes()
 {
-	this->mesh = m;
+	return this->meshes;
 }
+
+void IObject::addMesh(Mesh3D* m)
+{
+	this->meshes.push_back(m);
+}
+
+//void IObject::SetMesh(Mesh3D* m)
+//{
+//	this->mesh = m;
+//}

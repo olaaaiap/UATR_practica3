@@ -1,12 +1,13 @@
 #pragma once
 #include "IEntity.h"
 #include "Mesh3D.h"
-
+#include <vector>
 
 class IObject : public IEntity
 {
 
-	Mesh3D* mesh; //Puntero de la malla que almacenará la geometría de este objeto.
+	//Mesh3D* mesh; //Puntero de la malla que almacenará la geometría de este objeto.
+	std::vector<Mesh3D*> meshes; //Nueva lista de mallas
 public:
 	static inline int objectCounter = 0;
 	int objectId;
@@ -15,8 +16,10 @@ public:
 	std::vector<vertex_t> vertexList;
 	std::vector<int> vertexIndexList;
 
-	Mesh3D* GetMesh();
-	void SetMesh(Mesh3D* m);
+	Mesh3D* GetMesh(int pos);
+	std::vector<Mesh3D*>& getMeshes();
+	//void SetMesh(Mesh3D* m);
+	void addMesh(Mesh3D* m);
 	
 	//mesh = m;
 	

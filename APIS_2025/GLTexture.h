@@ -5,6 +5,7 @@ class GLTexture: public ITexture
 {
     GLuint GlTextID;
 public:
+    GLTexture() : ITexture() {};
     GLTexture(std::string fileName) : ITexture(fileName) {};
     void update() override;
 

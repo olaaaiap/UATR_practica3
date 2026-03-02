@@ -46,11 +46,24 @@ Material* FactoryEngine::getNewMaterial()
     switch (selectedGraphicsBackend)
     {
     case GraphicsBackend::GL4:
-        return new GLSLMaterial();   // el material moderno
+        return new GLSLMaterial();
 
     case GraphicsBackend::GL1_0:
     default:
-        return nullptr; // GL1 no usa materiales modernos
+        return nullptr;
+    }
+}
+
+ITexture* FactoryEngine::getNewTexture()
+{
+    switch (selectedGraphicsBackend)
+    {
+    case GraphicsBackend::GL4:
+        return new GLTexture();
+
+    case GraphicsBackend::GL1_0:
+    default:
+        return nullptr;
     }
 }
 

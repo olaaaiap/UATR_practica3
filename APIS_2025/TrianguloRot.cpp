@@ -8,7 +8,7 @@ TrianguloRot::TrianguloRot()
 {
     // Crear la Mesh3D asociada a este objeto
     Mesh3D* mesh = new Mesh3D();
-    this->SetMesh(mesh);   // VERY IMPORTANT: asignar la malla al Object3D
+    this->addMesh(mesh);
 
     // Asignar ID único del objeto (manteniendo tu sistema actual)
     this->objectId = objectCounter++;

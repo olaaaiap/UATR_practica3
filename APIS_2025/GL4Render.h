@@ -14,7 +14,8 @@ typedef struct boIDS_t
 
 class GL4Render : public GL1Render 
 {
-    std::map<int, boIDS_t> bufferObjects;
+    //std::map<int, boIDS_t> bufferObjects;
+    std::map<int, std::vector<boIDS_t>> bufferObjects;
 
 public:
 
@@ -23,5 +24,5 @@ public:
     virtual void setupObject(Object3D* obj) override;
     virtual void removeObject(Object3D* obj) override;
     virtual void drawObjects(std::list<Object3D*>* objs) override;
-    virtual void drawObject(Object3D* obj);
+    virtual void drawObject(Object3D* obj, Mesh3D* mesh);
 };
