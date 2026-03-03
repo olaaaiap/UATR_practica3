@@ -97,16 +97,16 @@ CubeTex::CubeTex()
 
 void CubeTex::step(double deltaTime)
 {
-	float velRot = 90.0f; // grados por segundo
+	//float velRot = 90.0f; // grados por segundo
 
-	// Obtener rotación actual
-	glm::vec4 rot = this->GetRotacion();
+	//// Obtener rotación actual
+	//glm::vec4 rot = this->GetRotacion();
 
-	rot.y += static_cast<float>(velRot * deltaTime);
+	//rot.y += static_cast<float>(velRot * deltaTime);
 
 
-	// Aplicar nueva rotación
-	this->setRotacion(rot);
+	//// Aplicar nueva rotación
+	//this->setRotacion(rot);
 
 	// Salida del programa al pulsar E
 	if (GLFWInputManager::keyboardState[GLFW_KEY_E])

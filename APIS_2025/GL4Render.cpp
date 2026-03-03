@@ -35,13 +35,13 @@ void GL4Render::setupObject(Object3D* obj)
 
         //copiar datos a GPU
         glBindVertexArray(bo.id); //activar lista de arrays
-        glBindBuffer(0x8892, bo.vbo);//activar lista de vértices
-        int numElements = obj->vertexList.size();
-        glBufferData(GL_ARRAY_BUFFER, numElements * sizeof(vertex_t), obj->vertexList.data(), GL_STATIC_DRAW); //copiar vertices
+        glBindBuffer(GL_ARRAY_BUFFER, bo.vbo);//activar lista de vértices
+        int numElements = mesh->getVertList()->size();
+        glBufferData(GL_ARRAY_BUFFER, numElements * sizeof(vertex_t), mesh->getVertList()->data(), GL_STATIC_DRAW); //copiar vertices
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bo.idxbo);//activar lista de indices de vértices
-        numElements = obj->vertexIndexList.size();
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, numElements * sizeof(unsigned int), obj->vertexIndexList.data(), GL_STATIC_DRAW); //copiar indices de vertices
+        int numIndices = mesh->getTriangleList()->size();
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(glm::uint32), mesh->getTriangleList()->data(), GL_STATIC_DRAW); //copiar indices de vertices
 
         mesh->getMaterial()->getProgram()->setVertexAttrib("vPos", sizeof(vertex_t), (void*)offsetof(vertex_t, vPosition), 4, GL_FLOAT);
         mesh->getMaterial()->getProgram()->setVertexAttrib("vTexCoord", sizeof(vertex_t), (void*)offsetof(vertex_t, vTextCoords),2, GL_FLOAT);
@@ -140,7 +140,7 @@ void GL4Render::drawObject(Object3D* obj, Mesh3D* mesh)
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(4, GL_FLOAT, sizeof(vertex_t), (void*)offsetof(vertex_t, vPosition));
     // Dibujar los elementos
-    glDrawElements(GL_TRIANGLES, obj->vertexIndexList.size(), GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, mesh->getTriangleList()->size(), GL_UNSIGNED_INT, nullptr);
 
     // Deshabilitar los estados de cliente
     glDisableClientState(GL_VERTEX_ARRAY);
