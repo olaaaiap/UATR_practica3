@@ -28,7 +28,9 @@ void ITexture::load(std::string filename)
 
     unsigned char* data = stbi_load(fileName.c_str(), &w, &h, &componentes, 4);
     if (data) {
-        texBytes.resize(w * h);
+        //olaia prueba
+        std::cout << "ITexture::load -> OK: " << w << "x" << h << " comp=" << componentes << std::endl;
+        texBytes.resize(w * h * 4);
         memcpy(texBytes.data(), data, w * h * 4);
         // liberar datos cargados por stb (ya copiados a texBytes)
         stbi_image_free(data);

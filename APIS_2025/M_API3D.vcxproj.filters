@@ -99,6 +99,9 @@
     <ClCompile Include="GLTexture.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="CubeTex.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mapi\common.h">
@@ -174,6 +177,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="GLTexture.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeTex.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

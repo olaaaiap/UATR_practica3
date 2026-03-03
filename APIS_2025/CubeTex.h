@@ -1,13 +1,11 @@
 #pragma once
 #include "Object3D.h"
-#include <glm/glm.hpp>
 
 
-class TrianguloRot : public Object3D
+class CubeTex: public Object3D
 {
 public:
-    TrianguloRot();
-
+    CubeTex();
     void step(double deltaTime) override;
 };
 

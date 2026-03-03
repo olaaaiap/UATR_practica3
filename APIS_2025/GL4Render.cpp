@@ -3,6 +3,15 @@
 #include "System.h"
 
 GL4Render::GL4Render(double w, double h): GL1Render(w, h){
+  
+}
+
+void GL4Render::init()
+{
+    // Llamar a la inicialización base (crea ventana y contexto)
+    GL1Render::init();
+
+    // Ahora el contexto está creado y podemos usar llamadas OpenGL
     glEnable(GL_DEPTH_TEST);
 }
 

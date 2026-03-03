@@ -10,6 +10,14 @@ void GLTexture::update()
 
     //cargar en GPU datos de textura
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, getW(), getH(), 0, GL_RGBA, GL_UNSIGNED_BYTE, getTexBytes().data());
+
+    //olaia prueba
+    GLenum err = glGetError();
+    if (err != GL_NO_ERROR)
+        std::cout << "GLTexture::update glTexImage2D error: " << err << std::endl;
+
+
+
     //activar filtros
     if (getBilinear()) {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -39,7 +47,10 @@ void GLTexture::update()
     // desbind para dejar estado limpio
     glBindTexture(GL_TEXTURE_2D, 0);
 
-   
+
+    //olaia prueba
+    std::cout << "GLTexture::update -> GPU id=" << GlTextID << " size=" << getW() << "x" << getH() << std::endl;
+
 
 
 }

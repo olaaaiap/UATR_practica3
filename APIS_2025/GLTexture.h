@@ -6,7 +6,7 @@ class GLTexture: public ITexture
     GLuint GlTextID;
 public:
     GLTexture() : ITexture() {};
-    GLTexture(std::string fileName) : ITexture(fileName) {};
+    GLTexture(std::string fileName) : ITexture(fileName) { setCubemap(true); };
     void update() override;
 
 	GLuint getGlTextId() { return GlTextID; };

@@ -24,5 +24,7 @@ public:
     virtual void setupObject(Object3D* obj) override;
     virtual void removeObject(Object3D* obj) override;
     virtual void drawObjects(std::list<Object3D*>* objs) override;
+	virtual void init() override;
     virtual void drawObject(Object3D* obj, Mesh3D* mesh);
+
 };
