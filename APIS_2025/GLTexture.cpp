@@ -7,6 +7,8 @@ void GLTexture::update()
     glGenTextures(1, &GlTextID);
     glBindTexture(GL_TEXTURE_2D, GlTextID);
 
+    setTextID(GlTextID);
+
 
     //cargar en GPU datos de textura
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, getW(), getH(), 0, GL_RGBA, GL_UNSIGNED_BYTE, getTexBytes().data());

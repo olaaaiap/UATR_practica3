@@ -10,15 +10,15 @@ CubeTex::CubeTex()
 
 	std::vector<vertex_t> vertLados =
 	{
-	  {{ 0.5f, 0.5f,0.0f,1.0f},{1,1}},//0
-	  {{-0.5f, 0.5f,0.0f,1.0f},{0,1}},//1
-	  {{-0.5f,-0.5f,0.0f,1.0f},{0,0}},//2
-	  {{ 0.5f,-0.5f,0.0f,1.0f},{1,0}}, //3
+	  {{-0.5f,-0.5f, 0.5f,1.0f},{0,0}}, //0 front bottom left
+	  {{ 0.5f,-0.5f, 0.5f,1.0f},{1,0}}, //1 front bottom right
+	  {{ 0.5f, 0.5f, 0.5f,1.0f},{1,1}}, //2 front top right
+	  {{-0.5f, 0.5f, 0.5f,1.0f},{0,1}}, //3 front top left
 
-	  {{ -0.5f,-0.5f,-0.5f,1.0f },{0,0} }, //4
-	  {{ 0.5f,-0.5f,-0.5f,1.0f},{1,0}}, //5
-	  {{ 0.5f, 0.5f,-0.5f,1.0f},{1,1}}, //6
-	  {{-0.5f, 0.5f,-0.5f,1.0f},{0,1}}, //7
+	  {{-0.5f,-0.5f,-0.5f,1.0f},{0,0}}, //4 back bottom left
+	  {{ 0.5f,-0.5f,-0.5f,1.0f},{1,0}}, //5 back bottom right
+	  {{ 0.5f, 0.5f,-0.5f,1.0f},{1,1}}, //6 back top right
+	  {{-0.5f, 0.5f,-0.5f,1.0f},{0,1}}, //7 back top left
 	}; //posiciones de vertices
 
 	for (auto v : vertLados)
@@ -42,7 +42,7 @@ CubeTex::CubeTex()
 	matLados->loadPrograms({ "data/shader.vert", "data/shader.frag" });
 	GLTexture* texFront = new GLTexture("data/front.png");
 	matLados->setColorText(texFront);
-	glm::vec4 zeroColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glm::vec4 zeroColor(1.0f, 1.0f, 1.0f, 1.0f);
 	matLados->setColorRGBA(zeroColor);
 	meshLados->setMaterial(matLados);
 
@@ -97,16 +97,16 @@ CubeTex::CubeTex()
 
 void CubeTex::step(double deltaTime)
 {
-	//float velRot = 90.0f; // grados por segundo
+	float velRot = 90.0f; // grados por segundo
 
-	//// Obtener rotación actual
-	//glm::vec4 rot = this->GetRotacion();
+	// Obtener rotación actual
+	glm::vec4 rot = this->GetRotacion();
 
-	//rot.y += static_cast<float>(velRot * deltaTime);
+	rot.y += static_cast<float>(velRot * deltaTime);
 
 
-	//// Aplicar nueva rotación
-	//this->setRotacion(rot);
+	// Aplicar nueva rotación
+	this->setRotacion(rot);
 
 	// Salida del programa al pulsar E
 	if (GLFWInputManager::keyboardState[GLFW_KEY_E])

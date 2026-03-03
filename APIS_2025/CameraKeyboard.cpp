@@ -17,8 +17,8 @@ void CameraKeyboard::step(double timeStep)
     //std::cout << "keyboard pressed:";
     for (const auto& [key, pressed] : GLFWInputManager::keyboardState) {
         if (pressed) std::cout << ' ' << key;
+        if (pressed) std::cout << std::endl;
     }
-    std::cout << std::endl;
 
 
     if (GLFWInputManager::keyboardState[GLFW_KEY_D])

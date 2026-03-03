@@ -121,7 +121,23 @@ void GLSLProgram::bindColorTextureSampler(int binding, ITexture* text)
 
     glActiveTexture(GL_TEXTURE0 + binding); //activar
     glBindTexture(textureType, text->getTextID()); //enlazar
-    glUniform1i(varList["colorText"], binding); //usar en shader
+
+    switch (textureType)
+    {
+        case GL_TEXTURE_2D:
+        {
+            glUniform1i(varList["colorText"], binding); //usar en shader
+            glUniform1i(varList["textureType"], 0); //usar en shader
+        }break;
+        case GL_TEXTURE_CUBE_MAP:
+        {
+            glUniform1i(varList["textSamplerCube"], binding); //usar en shader
+            glUniform1i(varList["textureType"], 1); //usar en shader
+
+        }break;
+    }
+
+    //glUniform1i(varList["colorText"], binding); //usar en shader
 }
 
 void GLSLProgram::setVertexAttrib(std::string name, GLsizei stride, void* offset, GLint count, GLenum type)

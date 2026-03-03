@@ -42,6 +42,7 @@ void GLSLMaterial::prepare()
 	glm::mat4 model = System::GetModelMatrix();
     glm::mat4 mvp = proj * view * model;
 	program->setMatrix("mMat", mvp);
+    program->setMatrix("M", model);
     
 
     if (colorText != nullptr) {
