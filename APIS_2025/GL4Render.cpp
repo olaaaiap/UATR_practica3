@@ -43,9 +43,9 @@ void GL4Render::setupObject(Object3D* obj)
         int numIndices = mesh->getTriangleList()->size();
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, numIndices * sizeof(glm::uint32), mesh->getTriangleList()->data(), GL_STATIC_DRAW); //copiar indices de vertices
 
+        mesh->getMaterial()->getProgram()->use();
         mesh->getMaterial()->getProgram()->setVertexAttrib("vPos", sizeof(vertex_t), (void*)offsetof(vertex_t, vPosition), 4, GL_FLOAT);
-        mesh->getMaterial()->getProgram()->setVertexAttrib("vTexCoord", sizeof(vertex_t), (void*)offsetof(vertex_t, vTextCoords),2, GL_FLOAT);
-
+        
         meshBuffers.push_back(bo);
 
     }

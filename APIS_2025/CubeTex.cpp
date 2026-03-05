@@ -41,6 +41,7 @@ CubeTex::CubeTex()
 	GLSLMaterial* matLados = new GLSLMaterial();
 	matLados->loadPrograms({ "data/shader.vert", "data/shader.frag" });
 	GLTexture* texFront = new GLTexture("data/front.png");
+	texFront->update();
 	matLados->setColorText(texFront);
 	glm::vec4 zeroColor(1.0f, 1.0f, 1.0f, 1.0f);
 	matLados->setColorRGBA(zeroColor);
@@ -80,6 +81,7 @@ CubeTex::CubeTex()
 	GLSLMaterial* matTapas = new GLSLMaterial();
 	matTapas->loadPrograms({ "data/shader.vert", "data/shader.frag" });
 	GLTexture* texTop = new GLTexture("data/top.png");
+	texTop->update();
 	matTapas->setColorText(texTop);
 	matTapas->setColorRGBA(zeroColor);
 	meshTapas->setMaterial(matTapas);

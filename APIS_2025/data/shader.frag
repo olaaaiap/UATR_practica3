@@ -27,5 +27,5 @@ void main()
                 tColor=textureCube(textSamplerCube, fTexCube);
             }
 
-    fragColor = colorRGBA+tColor; //asignar color de salida
+    fragColor = colorRGBA*tColor; //asignar color de salida
 }  
