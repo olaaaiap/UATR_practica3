@@ -10,15 +10,29 @@ CubeTex::CubeTex()
 
 	std::vector<vertex_t> vertLados =
 	{
-	  {{-0.5f,-0.5f, 0.5f,1.0f},{0,0}}, //0 front bottom left
-	  {{ 0.5f,-0.5f, 0.5f,1.0f},{1,0}}, //1 front bottom right
-	  {{ 0.5f, 0.5f, 0.5f,1.0f},{1,1}}, //2 front top right
-	  {{-0.5f, 0.5f, 0.5f,1.0f},{0,1}}, //3 front top left
+		//Cara delantera
+		{{-0.5f,-0.5f,0.5f,1.0f},{0,0}},
+		{{0.5f,-0.5f,0.5f,1.0f},{1,0}},
+		{{0.5f,0.5f,0.5f,1.0f},{1,1}},
+		{{-0.5f,0.5f,0.5f,1.0f},{0,1}},
 
-	  {{-0.5f,-0.5f,-0.5f,1.0f},{0,0}}, //4 back bottom left
-	  {{ 0.5f,-0.5f,-0.5f,1.0f},{1,0}}, //5 back bottom right
-	  {{ 0.5f, 0.5f,-0.5f,1.0f},{1,1}}, //6 back top right
-	  {{-0.5f, 0.5f,-0.5f,1.0f},{0,1}}, //7 back top left
+		//Cara trasera
+		{{ 0.5f,-0.5f,-0.5f,1.0f},{0,0}},
+		{{-0.5f,-0.5f,-0.5f,1.0f},{1,0}},
+		{{-0.5f,0.5f,-0.5f,1.0f},{1,1}},
+		{{ 0.5f,0.5f,-0.5f,1.0f},{0,1}},
+
+		//Cara de la derecha
+		{{0.5f,-0.5f,0.5f,1.0f},{0,0}},
+		{{0.5f,-0.5f,-0.5f,1.0f},{1,0}},
+		{{0.5f,0.5f,-0.5f,1.0f},{1,1}},
+		{{0.5f, 0.5f, 0.5f,1.0f},{0,1}},
+
+		//Cara de la izquierda
+		{{-0.5f,-0.5f,-0.5f,1.0f},{0,0}},
+		{{-0.5f,-0.5f,0.5f,1.0f},{1,0}},
+		{{-0.5f,0.5f,0.5f,1.0f},{1,1}},
+		{{-0.5f, 0.5f,-0.5f,1.0f},{0,1}},
 	}; //posiciones de vertices
 
 	for (auto v : vertLados)
@@ -28,12 +42,10 @@ CubeTex::CubeTex()
 
 	auto idxLados = meshLados->getTriangleList(); //puntero a la lista de indices de triangulos de esta malla
 	*idxLados = {
-		0,1,2, 0,2,3,
-		4,5,6, 4,6,7,
-		1,7,6, 1,6,2,
-		0,3,5, 0,5,4,
-		1,0,4, 1,4,7,
-		3,2,6, 3,6,5
+		0,1,2, 0,2,3, //cara delantera
+		4,5,6, 4,6,7, //cara trasera
+		8,9,10, 8,10,11, //cara derecha
+		12,13,14, 12,14,15 //cara izquierda
 	};
 
 
@@ -55,14 +67,16 @@ CubeTex::CubeTex()
 
 	std::vector<vertex_t> vertTapas =
 	{
-	  {{0.5f,0.5f,0.5f, 1.0f}, {1.0f, 1.0f}}, // 0
-	  {{-0.5f,0.5f,0.5f, 1.0f}, {0.0f, 1.0f}}, // 1
-	  {{-0.5f,-0.5f,0.5f, 1.0f}, {0.0f, 0.0f}}, // 2
-	  {{0.5f, -0.5f,0.5f, 1.0f}, {1.0f, 0.0f}}, // 3
-	  {{0.5f,0.5f, -0.5f, 1.0f}, {1.0f, 1.0f}}, // 4
-	  {{-0.5f, 0.5f, -0.5f, 1.0f}, {0.0f, 1.0f}}, // 5
-	  {{-0.5f, -0.5f, -0.5f, 1.0f}, {0.0f, 0.0f}}, // 6
-	  {{0.5f, -0.5f, -0.5f, 1.0f}, {1.0f, 0.0f}}, // 7
+	  //Cara superior
+	  {{0.5f,0.5f,0.5f, 1.0f}, {1,1}},
+	  {{-0.5f,0.5f,0.5f, 1.0f}, {0,1}},
+	  {{-0.5f,-0.5f,0.5f, 1.0f}, {0,0}},
+	  {{0.5f, -0.5f,0.5f, 1.0f}, {1,0}},
+	  //Cara inferior
+	  {{0.5f,0.5f, -0.5f, 1.0f}, {1,1}},
+	  {{-0.5f, 0.5f, -0.5f, 1.0f}, {0,1}},
+	  {{-0.5f,-0.5f, -0.5f, 1.0f}, {0,0}},
+	  {{0.5f, -0.5f, -0.5f, 1.0f}, {1,0}},
 	}; //posiciones de vertices
 
 	for (auto v : vertTapas)
@@ -72,8 +86,8 @@ CubeTex::CubeTex()
 
 	auto idxTapas = meshTapas->getTriangleList(); //puntero a la lista de indices de triangulos de esta malla
 	*idxTapas = {
-		4,5,1, 4,1,0,
-		3,2,6, 3,6,7
+		4,5,1, 4,1,0, //cara superior
+		3,2,6, 3,6,7//cara inferior
 	};
 
 

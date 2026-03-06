@@ -14,13 +14,6 @@ void CameraKeyboard::step(double timeStep)
     double vel = 1.0; //unidadesGl segundo
     double velRot = 40.0;
 
-    //std::cout << "keyboard pressed:";
-    for (const auto& [key, pressed] : GLFWInputManager::keyboardState) {
-        if (pressed) std::cout << ' ' << key;
-        if (pressed) std::cout << std::endl;
-    }
-
-
     if (GLFWInputManager::keyboardState[GLFW_KEY_D])
     {
         this->posicion.x += vel * timeStep;
@@ -42,6 +35,19 @@ void CameraKeyboard::step(double timeStep)
         lookAt.z -= vel * timeStep;
 
     }
+
+    //Subir/bajar cámara para ver que se están aplicando las texturas correctamente
+    if (GLFWInputManager::keyboardState[GLFW_KEY_R])
+    {
+        this->posicion.y += vel * timeStep;
+        lookAt.y += vel * timeStep;
+    }
+    if (GLFWInputManager::keyboardState[GLFW_KEY_T])
+    {
+        this->posicion.y -= vel * timeStep;
+        lookAt.y -= vel * timeStep;
+    }
+
     //calcular matriz vista
 
     view = glm::lookAt(glm::vec3(posicion), glm::vec3(lookAt), glm::vec3(0, 1, 0));
