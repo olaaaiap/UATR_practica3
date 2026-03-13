@@ -48,35 +48,40 @@ void GL1Render::init()
 
 void GL1Render::setupObject(Object3D* obj)
 {
-    bo_t bo = { 0,0,0 };
+	for (auto& mesh : obj->getMeshes()) {
+		bo_t bo = { 0,0,0 };
 
-	//crear buffers objects
-	glGenVertexArrays(1, &bo.arrayBufferId);
-	glGenBuffers(1, &bo.vertexArrayId);
-	glGenBuffers(1, &bo.vertexIdxArrayId);
-	//copiar datos a GPU
-	glBindVertexArray(bo.arrayBufferId); //activar lista de arrays
-	glBindBuffer(GL_ARRAY_BUFFER, bo.vertexArrayId);//activar lista de vértices
-	int numElements = obj->vertexList.size();
-	glBufferData(GL_ARRAY_BUFFER, numElements * sizeof(vertex_t), obj->vertexList.data(), GL_STATIC_DRAW); //copiar vertices
+		//crear buffers objects
+		glGenVertexArrays(1, &bo.arrayBufferId);
+		glGenBuffers(1, &bo.vertexArrayId);
+		glGenBuffers(1, &bo.vertexIdxArrayId);
+		//copiar datos a GPU
+		glBindVertexArray(bo.arrayBufferId); //activar lista de arrays
+		glBindBuffer(GL_ARRAY_BUFFER, bo.vertexArrayId);//activar lista de vértices
+		int numElements = mesh->getVertList()->size();
+		glBufferData(GL_ARRAY_BUFFER, numElements * sizeof(vertex_t), mesh->getVertList()->data(), GL_STATIC_DRAW); //copiar vertices
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bo.vertexIdxArrayId);//activar lista de indices de vértices
-	numElements = obj->vertexIndexList.size();
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, numElements * sizeof(unsigned int), obj->vertexIndexList.data(), GL_STATIC_DRAW); //copiar indices de vertices
-	//guardar ids de buffers
-	bufferObjectList[obj->objectId] = bo;
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bo.vertexIdxArrayId);//activar lista de indices de vértices
+		numElements = mesh->getTriangleList()->size();
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, numElements * sizeof(unsigned int), mesh->getTriangleList()->data(), GL_STATIC_DRAW); //copiar indices de vertices
+		//guardar ids de buffers
+		bufferObjectList[mesh->getMeshID()] = bo;
+	}
 }
 
 void GL1Render::removeObject(Object3D* obj)
 {
-	//Metodo para borrar un objeto. Se busca en la lista a través de su referencia/puntero y se borra
-	auto it = bufferObjectList.find(obj->objectId);
-	if (it != bufferObjectList.end()) {
-		bo_t bo = it->second;
-		glDeleteBuffers(1, &bo.vertexArrayId);
-		glDeleteBuffers(1, &bo.vertexIdxArrayId);
-		glDeleteVertexArrays(1, &bo.arrayBufferId);
-		bufferObjectList.erase(it);
+	for (auto& mesh : obj->getMeshes()) {
+
+		//Metodo para borrar un objeto. Se busca en la lista a través de su referencia/puntero y se borra
+		auto it = bufferObjectList.find(mesh->getMeshID());
+		if (it != bufferObjectList.end()) {
+			bo_t bo = it->second;
+			glDeleteBuffers(1, &bo.vertexArrayId);
+			glDeleteBuffers(1, &bo.vertexIdxArrayId);
+			glDeleteVertexArrays(1, &bo.arrayBufferId);
+			bufferObjectList.erase(it);
+		}
 	}
 }
 
@@ -97,41 +102,44 @@ void GL1Render::drawObjects(std::list<Object3D*>* objs)
     glMatrixMode(GL_MODELVIEW);
 
     // Recorrer todos los objetos
-    for (auto& obj : *objs)
-    {
-        // Calcular matriz modelo
-        auto model = obj->computeModelMatrix();
+	for (auto& obj : *objs)
+	{
+		// Calcular matriz modelo
+		auto model = obj->computeModelMatrix();
 
-        // Guardar la matriz actual en la pila
-        glPushMatrix();
-        glLoadIdentity(); // Cargar matriz identidad
-        glMultMatrixf(&model[0][0]); // Multiplicar por la matriz modelo del objeto
+		for (auto& mesh : obj->getMeshes()) {
 
-        // Activar buffers de datos
-        auto bo = bufferObjectList[obj->objectId];
-        glBindVertexArray(bo.arrayBufferId);
-        glBindBuffer(GL_ARRAY_BUFFER, bo.vertexArrayId);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bo.vertexIdxArrayId);
+			// Guardar la matriz actual en la pila
+			glPushMatrix();
+			glLoadIdentity(); // Cargar matriz identidad
+			glMultMatrixf(&model[0][0]); // Multiplicar por la matriz modelo del objeto
 
-        // Describir los buffers
-        glEnableClientState(GL_VERTEX_ARRAY);
-        glVertexPointer(4, GL_FLOAT, sizeof(vertex_t), (void*)offsetof(vertex_t, vPosition));
-        
+			// Activar buffers de datos
+			auto bo = bufferObjectList[mesh->getMeshID()];
+			glBindVertexArray(bo.arrayBufferId);
+			glBindBuffer(GL_ARRAY_BUFFER, bo.vertexArrayId);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bo.vertexIdxArrayId);
 
-		//glEnableClientState(GL_COLOR_ARRAY);//voy a describir listas de color de vértice
-		//glColorPointer(4, GL_FLOAT, sizeof(vertex_t), (void*)offsetof(vertex_t, vColor)); //4 floats después de 4 floats (posición)
+			// Describir los buffers
+			glEnableClientState(GL_VERTEX_ARRAY);
+			glVertexPointer(4, GL_FLOAT, sizeof(vertex_t), (void*)offsetof(vertex_t, vPosition));
 
 
-        // Dibujar los elementos
-		glDrawElements(GL_TRIANGLES, obj->vertexIndexList.size(), GL_UNSIGNED_INT, nullptr);
+			//glEnableClientState(GL_COLOR_ARRAY);//voy a describir listas de color de vértice
+			//glColorPointer(4, GL_FLOAT, sizeof(vertex_t), (void*)offsetof(vertex_t, vColor)); //4 floats después de 4 floats (posición)
 
-        // Restaurar la matriz anterior
-        glPopMatrix();
 
-        // Deshabilitar los estados de cliente
-        glDisableClientState(GL_VERTEX_ARRAY);
-        glDisableClientState(GL_COLOR_ARRAY);
-    }
+			// Dibujar los elementos
+			glDrawElements(GL_TRIANGLES, mesh->getTriangleList()->size(), GL_UNSIGNED_INT, nullptr);
+
+			// Restaurar la matriz anterior
+			glPopMatrix();
+
+			// Deshabilitar los estados de cliente
+			glDisableClientState(GL_VERTEX_ARRAY);
+			glDisableClientState(GL_COLOR_ARRAY);
+		}
+	}
 
     // Present frame and process events
     if (this->window) {
